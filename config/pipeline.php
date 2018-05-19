@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Psr\Container\ContainerInterface;
+use Service\Base\Middleware\PrepareRoutesMiddleware;
 use Zend\Expressive\Application;
 use Zend\Expressive\Handler\NotFoundHandler;
 use Zend\Expressive\Helper\ServerUrlMiddleware;
@@ -44,6 +45,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
 
     // Register the routing middleware in the middleware pipeline.
     // This middleware registers the Zend\Expressive\Router\RouteResult request attribute.
+    $app->pipe(new PrepareRoutesMiddleware($container));
     $app->pipe(RouteMiddleware::class);
 
     // The following handle routing failures for common conditions:
