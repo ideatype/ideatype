@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Endpoint\Post;
 
 use Blast\ReflectionFactory\ReflectionFactory;
+use Endpoint\Post\Action\GetPostAction;
+use Endpoint\Post\Action\PostListAction;
 
 class ConfigProvider
 {
@@ -15,6 +17,8 @@ class ConfigProvider
                 'invokables' => [
                 ],
                 'factories'  => [
+                    PostListAction::class => ReflectionFactory::class,
+                    GetPostAction::class => ReflectionFactory::class,
                 ],
             ],
             'routes' => [
@@ -22,6 +26,15 @@ class ConfigProvider
                     'name' => 'get-post',
                     'path' => "/post/:title",
                     'middleware' => [
+                        GetPostAction::class
+                    ],
+                    'allowed_methods' => ['GET'],
+                ],
+                [
+                    'name' => 'list-posts',
+                    'path' => "/posts",
+                    'middleware' => [
+                        PostListAction::class
                     ],
                     'allowed_methods' => ['GET'],
                 ],

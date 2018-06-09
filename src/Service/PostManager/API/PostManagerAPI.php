@@ -1,13 +1,24 @@
 <?php
 declare(strict_types=1);
 
-namespace Service\FileManager\API;
+namespace Service\PostManager\API;
+
+use Service\PostManager\Application\Service\PostManagerService;
+use Service\PostManager\Domain\Collection\PostMetaCollection;
 
 class PostManagerAPI
 {
-    public function __construct()
-    {
+    /** @var PostManagerService */
+    private $postManagerService;
+
+    public function __construct(
+        PostManagerService $postManagerService
+    ) {
+        $this->postManagerService = $postManagerService;
     }
 
-    public function listPosts():
+    public function fetchPostList(): PostMetaCollection
+    {
+        return $this->postManagerService->fetchPostList();
+    }
 }

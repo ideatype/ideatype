@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Service\Parser\Infrastructure\Repository;
 
 
+use Service\Parser\Domain\ValueObject\ParsedFileMetaVO;
 use Service\Parser\Domain\ValueObject\ParsedFileVO;
 use Service\Parser\Infrastructure\Definition\ParserRepositoryInterface;
 use Service\Parser\Infrastructure\Gateway\MarkdownParserGateway;
@@ -24,7 +25,7 @@ class ParserRepository implements ParserRepositoryInterface
         $content = $this->markdownParserGateway->parseContent($content);
         return new ParsedFileVO(
             $content['content'],
-            $content['meta']
+            new ParsedFileMetaVO($content['meta'])
         );
     }
 }

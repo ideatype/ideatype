@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Endpoint\HealthCheck\Action;
+namespace Endpoint\Post\Action;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;

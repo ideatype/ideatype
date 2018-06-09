@@ -65,6 +65,7 @@
             "Service\\": "src/Service/",
             "Service\\Base\\": "src/Service/Base/",
             "Service\\Parser\\": "src/Service/Parser/",
+            "Service\\PostManager\\": "src/Service/PostManager/",
             "SharedLibrary\\Response\\": "src/SharedLibrary/Response/"
         }
     },

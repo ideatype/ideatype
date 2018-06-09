@@ -23,7 +23,9 @@ $aggregator = new ConfigAggregator([
     // IdeaType modules
     Service\Base\ConfigProvider::class,
     Service\Parser\ConfigProvider::class,
+    Service\PostManager\ConfigProvider::class,
     Endpoint\HealthCheck\ConfigProvider::class,
+    Endpoint\Post\ConfigProvider::class,
     // Load application config in a pre-defined order in such a way that local settings
     // overwrite global settings. (Loaded as first to last):
     //   - `global.php`
