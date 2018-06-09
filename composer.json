@@ -38,7 +38,9 @@
     },
     "require": {
         "php": "^7.1",
+        "maglnet/magl-markdown": "~1.1",
         "mtymek/blast-reflection-factory": "^0.1.1",
+        "php-middleware/php-debug-bar": "^2.1",
         "roave/security-advisories": "dev-master",
         "zendframework/zend-component-installer": "^2.1.1",
         "zendframework/zend-config-aggregator": "^1.0",
@@ -61,7 +63,8 @@
             "Endpoint\\": "src/Endpoint/",
             "Endpoint\\HealthCheck\\": "src/Endpoint/HealthCheck/",
             "Service\\": "src/Service/",
-            "Service\\Base\\": "src/Service/Base/"
+            "Service\\Base\\": "src/Service/Base/",
+            "Service\\Parser\\": "src/Service/Parser/"
         }
     },
     "autoload-dev": {
