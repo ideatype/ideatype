@@ -3,23 +3,27 @@ declare(strict_types=1);
 
 namespace Service\Parser\Infrastructure\Gateway;
 
-use MaglMarkdown\Adapter\MichelfPHPMarkdownAdapter;
-use MaglMarkdown\Service\Markdown;
+use Mni\FrontYAML\Parser;
 use Service\Parser\Infrastructure\Definition\MarkdownParserGatewayInterface;
 
 class MarkdownParserGateway implements MarkdownParserGatewayInterface
 {
-    /** @var Markdown */
-    private $markdownService;
+    /** @var Parser */
+    private $yamlParserService;
 
-    public function __construct(
-    ) {
-        $this->markdownService = new Markdown(new MichelfPHPMarkdownAdapter());
+    public function __construct()
+    {
+        $this->yamlParserService = new Parser();
     }
 
     public function parseContent(string $content): array
     {
-        $content = $this->markdownService->render($content);
-        return ['meta' => [], 'content' => $content];
+        $content = $this->yamlParserService->parse($content);
+        $yaml = $content->getYAML();
+
+        return [
+            'meta' => is_array($yaml) ? $yaml : [],
+            'content' => $content->getContent()
+        ];
     }
 }

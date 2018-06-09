@@ -38,7 +38,7 @@
     },
     "require": {
         "php": "^7.1",
-        "maglnet/magl-markdown": "~1.1",
+        "mnapoli/front-yaml": "^1.6",
         "mtymek/blast-reflection-factory": "^0.1.1",
         "php-middleware/php-debug-bar": "^2.1",
         "roave/security-advisories": "dev-master",
@@ -64,7 +64,9 @@
             "Endpoint\\HealthCheck\\": "src/Endpoint/HealthCheck/",
             "Service\\": "src/Service/",
             "Service\\Base\\": "src/Service/Base/",
-            "Service\\Parser\\": "src/Service/Parser/"
+            "Service\\Parser\\": "src/Service/Parser/",
+            "Service\\PostManager\\": "src/Service/PostManager/",
+            "SharedLibrary\\Response\\": "src/SharedLibrary/Response/"
         }
     },
     "autoload-dev": {
