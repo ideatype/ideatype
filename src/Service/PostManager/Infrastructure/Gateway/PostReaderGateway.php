@@ -45,7 +45,6 @@ class PostReaderGateway implements PostReaderGatewayInterface
 
     private function returnDirsWithPosts(array $directories): array
     {
-        $postDir = $this->getPostDir();
         $returnDirs = [];
 
         foreach ($directories as $directory) {
@@ -57,15 +56,20 @@ class PostReaderGateway implements PostReaderGatewayInterface
         return $returnDirs;
     }
 
-    private function getPostFileContent(string $dirName): ?string
+    private function getPostFileContent(string $dirName): ?array
     {
         if (!$this->isValidPost($dirName)) {
             return null;
         }
+        $path = realpath($this->getPostDir() . '/' . $dirName . '/post.md');
         $fileContent = @file_get_contents(
-            realpath($this->getPostDir() . '/' . $dirName . '/post.md')
+            $path
         );
-        return $fileContent;
+        $fileModifiedDate = filemtime($path);
+        return [
+            'content' => $fileContent,
+            'date' => $fileModifiedDate
+        ];
     }
 
     private function isValidPost(string $dirName): bool

@@ -31,11 +31,22 @@ class PostReaderRepository implements PostReaderRepositoryInterface
         $postMetaCollection = new PostMetaCollection();
         $postMetaArray = $this->postReaderGateway->fetchPostList();
 
-        foreach ($postMetaArray as $fileName => $post) {
-            $parsedPost = $this->parserAPI->parseMarkdown($post);
-            $postMeta = new PostMeta($fileName, $parsedPost->getMeta()->getValue());
+        foreach ($postMetaArray as $fileName => $postArray) {
+            $parsedPost = $this->parserAPI->parseMarkdown($postArray['content']);
+            $postMeta = new PostMeta(
+                $fileName,
+                $parsedPost->getMeta()->getValue(),
+                $parsedPost->getValue(),
+                $postArray['date']
+            );
             $postMetaCollection->append($postMeta);
         }
+        $postMetaCollection->uasort(array($this, "sortMethod"));
         return $postMetaCollection;
+    }
+
+    public function sortMethod(PostMeta $a, PostMeta $b)
+    {
+        return $a->getDate() < $b->getDate();
     }
 }
