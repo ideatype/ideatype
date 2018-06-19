@@ -11,12 +11,22 @@ class PostMeta
     /** @var array */
     private $content;
 
+    /** @var string */
+    private $postExcerpt;
+
+    /** @var int */
+    private $date;
+
     public function __construct(
         string $fileName,
-        array $content
+        array $content,
+        string $postExcerpt,
+        int $date
     ) {
         $this->fileName = $fileName;
         $this->content = $content;
+        $this->postExcerpt = $postExcerpt;
+        $this->date = $date;
     }
 
     public function getMeta(): array
@@ -39,11 +49,35 @@ class PostMeta
         $this->fileName = $fileName;
     }
 
+    public function getPostExcerpt(): string
+    {
+        return $this->postExcerpt;
+    }
+
+    public function setPostExcerpt(string $postExcerpt): void
+    {
+        $this->postExcerpt = $postExcerpt;
+    }
+
+    public function getDate(): int
+    {
+        return $this->date;
+    }
+
+    public function setDate(int $date): void
+    {
+        $this->date = $date;
+    }
+
     public function toArray(): array
     {
         return [
             'fileName' => $this->getFileName(),
-            'meta' => $this->getMeta()
+            'meta' => array_merge(
+                ['time' => $this->getDate()],
+                $this->getMeta()
+            ),
+            'excerpt' => $this->getPostExcerpt()
         ];
     }
 }
