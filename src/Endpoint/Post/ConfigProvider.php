@@ -24,7 +24,7 @@ class ConfigProvider
             'routes' => [
                 [
                     'name' => 'get-post',
-                    'path' => "/post/:title",
+                    'path' => "/post/{postId}",
                     'middleware' => [
                         GetPostAction::class
                     ],

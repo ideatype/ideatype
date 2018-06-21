@@ -66,7 +66,8 @@
             "Service\\Base\\": "src/Service/Base/",
             "Service\\Parser\\": "src/Service/Parser/",
             "Service\\PostManager\\": "src/Service/PostManager/",
-            "SharedLibrary\\Response\\": "src/SharedLibrary/Response/"
+            "SharedLibrary\\Response\\": "src/SharedLibrary/Response/",
+            "SharedLibrary\\Exception\\": "src/SharedLibrary/Exception/"
         }
     },
     "autoload-dev": {

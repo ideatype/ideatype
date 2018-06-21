@@ -5,6 +5,7 @@ namespace Service\PostManager\API;
 
 use Service\PostManager\Application\Service\PostManagerService;
 use Service\PostManager\Domain\Collection\PostMetaCollection;
+use Service\PostManager\Domain\Entity\Post;
 
 class PostManagerAPI
 {
@@ -20,5 +21,10 @@ class PostManagerAPI
     public function fetchPostList(): PostMetaCollection
     {
         return $this->postManagerService->fetchPostList();
+    }
+
+    public function fetchSinglePost(string $postId): Post
+    {
+        return $this->postManagerService->fetchSinglePost($postId);
     }
 }
