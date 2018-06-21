@@ -8,6 +8,11 @@ use Service\PostManager\Infrastructure\Definition\PostReaderGatewayInterface;
 
 class PostReaderGateway implements PostReaderGatewayInterface
 {
+    public function fetchSinglePost(string $postId): ?array
+    {
+        return $this->getPostFileContent($postId);
+    }
+
     public function fetchPostList(): array
     {
         $dirs = $this->listDirsInPostDirectory();

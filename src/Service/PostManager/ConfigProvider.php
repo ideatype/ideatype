@@ -8,6 +8,7 @@ use Blast\ReflectionFactory\ReflectionFactory;
 use Service\PostManager\API\PostManagerAPI;
 use Service\PostManager\Application\Service\PostManagerService;
 use Service\PostManager\Domain\Query\FetchPostListQuery;
+use Service\PostManager\Domain\Query\FetchSinglePostQuery;
 use Service\PostManager\Domain\Service\PostManagerDomainService;
 use Service\PostManager\Infrastructure\Definition\PostReaderGatewayInterface;
 use Service\PostManager\Infrastructure\Definition\PostReaderRepositoryInterface;
@@ -30,7 +31,8 @@ class ConfigProvider
                     PostManagerDomainService::class => ReflectionFactory::class,
                     PostReaderGateway::class => ReflectionFactory::class,
                     PostReaderRepository::class => ReflectionFactory::class,
-                    FetchPostListQuery::class => ReflectionFactory::class
+                    FetchPostListQuery::class => ReflectionFactory::class,
+                    FetchSinglePostQuery::class => ReflectionFactory::class
                 ],
             ],
         ];
