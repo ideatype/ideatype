@@ -26,6 +26,7 @@ class ConfigProvider
             ],
             'frontend' => [
                 'template' => "basic",
+                'index_file' => "index.html"
             ] // TODO: move to yaml
         ];
     }

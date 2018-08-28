@@ -38,6 +38,7 @@
     },
     "require": {
         "php": "^7.1",
+        "league/flysystem": "^1.0",
         "mnapoli/front-yaml": "^1.6",
         "mtymek/blast-reflection-factory": "^0.1.1",
         "php-middleware/php-debug-bar": "^2.1",

@@ -77,4 +77,5 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     // At this point, if no Response is returned by any middleware,
     // we should fall back to returning a rendered frontend template
     $app->pipe(FrontendTemplateMiddleware::class);
+    $app->pipe(NotFoundHandler::class);
 };
