@@ -22,6 +22,7 @@ $aggregator = new ConfigAggregator([
     \Zend\Expressive\Router\ConfigProvider::class,
     // IdeaType modules
     Service\Base\ConfigProvider::class,
+    Service\FrontendHandler\ConfigProvider::class,
     Service\Parser\ConfigProvider::class,
     Service\PostManager\ConfigProvider::class,
     Endpoint\HealthCheck\ConfigProvider::class,

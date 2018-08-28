@@ -19,7 +19,7 @@ class ConfigProvider
                     PingAction::class => ReflectionFactory::class
                 ],
             ],
-            'routes' => [
+            'api_routes' => [
                 [
                     'name' => 'ping',
                     'path' => "/ping",

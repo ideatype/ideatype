@@ -61,9 +61,11 @@
     "autoload": {
         "psr-4": {
             "Endpoint\\": "src/Endpoint/",
+            "Endpoint\\Post\\": "src/Endpoint/Post/",
             "Endpoint\\HealthCheck\\": "src/Endpoint/HealthCheck/",
             "Service\\": "src/Service/",
             "Service\\Base\\": "src/Service/Base/",
+            "Service\\FrontendHandler\\": "src/Service/FrontendHandler/",
             "Service\\Parser\\": "src/Service/Parser/",
             "Service\\PostManager\\": "src/Service/PostManager/",
             "SharedLibrary\\Response\\": "src/SharedLibrary/Response/",

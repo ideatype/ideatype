@@ -21,7 +21,7 @@ class ConfigProvider
                     GetPostAction::class => ReflectionFactory::class,
                 ],
             ],
-            'routes' => [
+            'api_routes' => [
                 [
                     'name' => 'get-post',
                     'path' => "/post/{postId}",

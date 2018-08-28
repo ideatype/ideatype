@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Psr\Container\ContainerInterface;
 use Service\Base\Middleware\CORSOverrideMiddleware;
+use Service\Base\Middleware\FrontendTemplateMiddleware;
 use Service\Base\Middleware\PrepareRoutesMiddleware;
 use Zend\Expressive\Application;
 use Zend\Expressive\Handler\NotFoundHandler;
@@ -73,8 +74,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     // Register the dispatch middleware in the middleware pipeline
     $app->pipe(DispatchMiddleware::class);
 
-    // At this point, if no Response is returned by any middleware, the
-    // NotFoundHandler kicks in; alternately, you can provide other fallback
-    // middleware to execute.
-    $app->pipe(NotFoundHandler::class);
+    // At this point, if no Response is returned by any middleware,
+    // we should fall back to returning a rendered frontend template
+    $app->pipe(FrontendTemplateMiddleware::class);
 };
