@@ -38,6 +38,7 @@
     },
     "require": {
         "php": "^7.1",
+        "league/flysystem": "^1.0",
         "mnapoli/front-yaml": "^1.6",
         "mtymek/blast-reflection-factory": "^0.1.1",
         "php-middleware/php-debug-bar": "^2.1",
@@ -61,9 +62,11 @@
     "autoload": {
         "psr-4": {
             "Endpoint\\": "src/Endpoint/",
+            "Endpoint\\Post\\": "src/Endpoint/Post/",
             "Endpoint\\HealthCheck\\": "src/Endpoint/HealthCheck/",
             "Service\\": "src/Service/",
             "Service\\Base\\": "src/Service/Base/",
+            "Service\\FrontendHandler\\": "src/Service/FrontendHandler/",
             "Service\\Parser\\": "src/Service/Parser/",
             "Service\\PostManager\\": "src/Service/PostManager/",
             "SharedLibrary\\Response\\": "src/SharedLibrary/Response/",

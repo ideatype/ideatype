@@ -26,11 +26,25 @@ class PrepareRoutesMiddleware implements MiddlewareInterface
     {
         /** @var Application $application */
         $application = $this->container->get(Application::class);
-        $configRoutes = $this->container->get("config")['routes'];
+        $configRoutes = $this->container->get("config")['routes'] ?? [];
+        $configApiRoutes = $this->container->get("config")['api_routes'] ?? [];
 
         foreach ($configRoutes as $configRoute) {
             $route = $application->route(
                 $configRoute['path'],
+                $configRoute['middleware'],
+                $configRoute['allowed_methods'],
+                $configRoute['name'] ?? null
+            );
+
+            if (isset($configRoute['options'])) {
+                $route->setOptions($configRoute['options']);
+            }
+        }
+
+        foreach ($configApiRoutes as $configRoute) {
+            $route = $application->route(
+                '/api' . $configRoute['path'],
                 $configRoute['middleware'],
                 $configRoute['allowed_methods'],
                 $configRoute['name'] ?? null
