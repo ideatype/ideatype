@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Service\Base;
 
 use Blast\ReflectionFactory\ReflectionFactory;
-use Service\Base\Factory\FrontendTemplateMiddlewareFactory;
 use Service\Base\Middleware\CORSOverrideMiddleware;
 use Service\Base\Middleware\FrontendTemplateMiddleware;
 use Service\Base\Middleware\PrepareRoutesMiddleware;

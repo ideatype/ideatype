@@ -43,8 +43,12 @@ class FrontendHandlerDomainService
             throw TemplateDoesNotExistException::forTemplate($template);
         }
 
-        if ($this->checkIfTemplateHasFileQuery->execute($template, $request->getUri()->getPath())) {
-            return $this->generateTemplateFileResponseQuery->execute($template, $request->getUri()->getPath());
+        $path = $request->getUri()->getPath();
+        if (
+            $this->checkIfTemplateHasFileQuery->execute($template, $path)
+            && $path != "/"
+        ) {
+            return $this->generateTemplateFileResponseQuery->execute($template, $path);
         }
 
         return $this->generateTemplateFileResponseQuery->execute($template, $this->config['index_file']);
