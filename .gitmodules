@@ -1,3 +1,4 @@
 [submodule "templates/basic"]
 	path = templates/basic
 	url = https://github.com/ideatype/template-basic.git
+	branch = master
