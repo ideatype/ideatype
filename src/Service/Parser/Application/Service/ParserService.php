@@ -4,7 +4,8 @@ declare(strict_types=1);
 namespace Service\Parser\Application\Service;
 
 use Service\Parser\Domain\Service\ParserDomainService;
-use Service\Parser\Domain\ValueObject\ParsedFileVO;
+use Service\Parser\Domain\ValueObject\ParsedConfigFileVO;
+use Service\Parser\Domain\ValueObject\ParsedContentFileVO;
 
 class ParserService
 {
@@ -17,8 +18,13 @@ class ParserService
         $this->parserDomainService = $parserDomainService;
     }
 
-    public function parseMarkdown(string $content): ParsedFileVO
+    public function parseMarkdown(string $content): ParsedContentFileVO
     {
         return $this->parserDomainService->parseMarkdown($content);
+    }
+
+    public function parseConfig(string $yaml): ParsedConfigFileVO
+    {
+        return $this->parserDomainService->parseConfig($yaml);
     }
 }

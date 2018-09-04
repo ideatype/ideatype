@@ -4,14 +4,14 @@ declare(strict_types=1);
 namespace Service\PostManager\Infrastructure\Hydrator;
 
 
-use Service\Parser\Domain\ValueObject\ParsedFileVO;
+use Service\Parser\Domain\ValueObject\ParsedContentFileVO;
 use Service\PostManager\Domain\Entity\PostMeta;
 
 class PostMetaHydrator
 {
     public static function hydrateFromParsedFile(
         string $postId,
-        ParsedFileVO $parsedPost,
+        ParsedContentFileVO $parsedPost,
         int $date
     ): PostMeta {
         return new PostMeta(

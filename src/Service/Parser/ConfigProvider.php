@@ -9,10 +9,13 @@ use MaglMarkdown\Service\Markdown;
 use Service\Parser\API\ParserAPI;
 use Service\Parser\Application\Service\ParserService;
 use Service\Parser\Domain\Query\ParseMarkdownQuery;
+use Service\Parser\Domain\Query\ParseYamlQuery;
 use Service\Parser\Domain\Service\ParserDomainService;
 use Service\Parser\Infrastructure\Definition\MarkdownParserGatewayInterface;
 use Service\Parser\Infrastructure\Definition\ParserRepositoryInterface;
+use Service\Parser\Infrastructure\Definition\YamlParserGatewayInterface;
 use Service\Parser\Infrastructure\Gateway\MarkdownParserGateway;
+use Service\Parser\Infrastructure\Gateway\YamlParserGateway;
 use Service\Parser\Infrastructure\Repository\ParserRepository;
 
 class ConfigProvider
@@ -23,6 +26,7 @@ class ConfigProvider
             'dependencies' => [
                 'aliases' => [
                     MarkdownParserGatewayInterface::class => MarkdownParserGateway::class,
+                    YamlParserGatewayInterface::class => YamlParserGateway::class,
                     ParserRepositoryInterface::class => ParserRepository::class
                 ],
                 'factories' => [
@@ -31,7 +35,9 @@ class ConfigProvider
                     ParserDomainService::class => ReflectionFactory::class,
                     ParserRepository::class => ReflectionFactory::class,
                     MarkdownParserGateway::class => ReflectionFactory::class,
-                    ParseMarkdownQuery::class => ReflectionFactory::class
+                    YamlParserGateway::class => ReflectionFactory::class,
+                    ParseMarkdownQuery::class => ReflectionFactory::class,
+                    ParseYamlQuery::class => ReflectionFactory::class,
                 ],
             ],
         ];

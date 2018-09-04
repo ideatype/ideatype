@@ -1,0 +1,17 @@
+top_menu:
+  - title: Entry1
+    value: /entry1
+  - title: Entry2
+    value: /entry2
+  - title: Entry3
+    value: /entry3
+  - title: Entries list
+    value:
+      - title: Subentry1
+        value: /sub1
+      - title: Subentry2
+        value: /sub2
+      - title: Subentry3
+        value: /sub3
+      - title: Subentry4
+        value: /sub4
