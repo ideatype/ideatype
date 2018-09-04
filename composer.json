@@ -43,6 +43,7 @@
         "mtymek/blast-reflection-factory": "^0.1.1",
         "php-middleware/php-debug-bar": "^2.1",
         "roave/security-advisories": "dev-master",
+        "symfony/yaml": "^4.1",
         "zendframework/zend-component-installer": "^2.1.1",
         "zendframework/zend-config-aggregator": "^1.0",
         "zendframework/zend-diactoros": "^1.7.1",

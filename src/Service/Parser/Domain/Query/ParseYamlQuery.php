@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 namespace Service\Parser\Domain\Query;
 
-use Service\Parser\Domain\ValueObject\ParsedContentFileVO;
+use Service\Parser\Domain\ValueObject\ParsedConfigFileVO;
 use Service\Parser\Infrastructure\Definition\ParserRepositoryInterface;
 
-class ParseMarkdownQuery
+class ParseYamlQuery
 {
     /** @var ParserRepositoryInterface */
     private $parserRepository;
@@ -17,8 +17,8 @@ class ParseMarkdownQuery
         $this->parserRepository = $parserRepository;
     }
 
-    public function execute(string $content): ParsedContentFileVO
+    public function execute(string $content): ParsedConfigFileVO
     {
-        return $this->parserRepository->parseMarkdown($content);
+        return $this->parserRepository->parseYaml($content);
     }
 }

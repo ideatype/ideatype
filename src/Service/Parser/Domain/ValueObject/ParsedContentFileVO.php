@@ -5,17 +5,17 @@ namespace Service\Parser\Domain\ValueObject;
 
 use Service\Base\ValueObject\BaseVO;
 
-class ParsedFileVO extends BaseVO
+class ParsedContentFileVO extends BaseVO
 {
     /** @var string */
     private $htmlContent;
 
-    /** @var ParsedFileMetaVO */
+    /** @var ParsedContentFileMetaVO */
     private $meta;
 
     public function __construct(
         string $htmlContent,
-        ParsedFileMetaVO $meta
+        ParsedContentFileMetaVO $meta
     ) {
         $this->htmlContent = $htmlContent;
         $this->meta = $meta;
@@ -32,7 +32,7 @@ class ParsedFileVO extends BaseVO
         return $this->htmlContent;
     }
 
-    public function getMeta(): ParsedFileMetaVO
+    public function getMeta(): ParsedContentFileMetaVO
     {
         return $this->meta;
     }

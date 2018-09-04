@@ -1,20 +1,19 @@
 <?php
 declare(strict_types=1);
 
-namespace Service\Parser\Domain\ValueObject;
+namespace Service\ConfigManager\Domain\ValueObject;
 
 use Service\Base\ValueObject\BaseVO;
 
-class ParsedFileMetaVO extends BaseVO
+class ConfigVO extends BaseVO
 {
-    /** @var array*/
-    private $content;
+    /** @var array */
+    private $value;
 
     public function __construct(
-        array $content
+        array $value
     ) {
-        $this->content = $content;
-        $this->validate();
+        $this->value = $value;
     }
 
     protected function isValid(): bool
@@ -24,6 +23,6 @@ class ParsedFileMetaVO extends BaseVO
 
     public function getValue(): array
     {
-        return $this->content;
+        return $this->value;
     }
 }
