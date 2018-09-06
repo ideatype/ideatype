@@ -21,7 +21,7 @@ class ConfigProvider
             ],
             'api_routes' => [
                 [
-                    'name' => 'get-post',
+                    'name' => 'get-page',
                     'path' => "/page/{pageId}",
                     'middleware' => [
                         GetPageAction::class
