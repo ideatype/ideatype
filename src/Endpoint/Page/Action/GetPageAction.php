@@ -1,17 +1,18 @@
 <?php
 declare(strict_types=1);
 
-namespace Endpoint\Post\Action;
+namespace Endpoint\Page\Action;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Service\ContentManager\API\ContentManagerAPI;
+use Service\ContentManager\Domain\Exception\PageDoesNotExistException;
 use Service\ContentManager\Domain\Exception\PostDoesNotExistException;
 use SharedLibrary\Response\StandardResponse;
 use Zend\Diactoros\Response\JsonResponse;
 
-class GetPostAction implements RequestHandlerInterface
+class GetPageAction implements RequestHandlerInterface
 {
     /** @var ContentManagerAPI */
     private $postManagerAPI;
@@ -23,15 +24,15 @@ class GetPostAction implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $postId = $request->getAttribute("postId");
+        $pageId = $request->getAttribute("pageId");
 
-        if (empty($postId)) {
-            return new StandardResponse(['message' => "Post ID missing"], false);
+        if (empty($pageId)) {
+            return new StandardResponse(['message' => "Page ID missing"], false);
         }
 
         try {
-            $post = $this->postManagerAPI->fetchSinglePost($postId);
-        } catch (PostDoesNotExistException $e) {
+            $page = $this->postManagerAPI->fetchPage($pageId);
+        } catch (PageDoesNotExistException $e) {
             return new StandardResponse(
                 [
                     'message' => $e->getMessage()
@@ -41,6 +42,6 @@ class GetPostAction implements RequestHandlerInterface
             );
         }
 
-        return new StandardResponse(['post' => $post->toArray()]);
+        return new StandardResponse(['page' => $page->toArray()]);
     }
 }

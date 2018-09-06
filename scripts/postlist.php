@@ -1,6 +1,6 @@
 <?php
 require 'bootstrap.php';
 
-/** @var \Service\PostManager\API\PostManagerAPI $managerAPI */
-$managerAPI = $container->get(\Service\PostManager\API\PostManagerAPI::class);
+/** @var \Service\ContentManager\API\ContentManagerAPI $managerAPI */
+$managerAPI = $container->get(\Service\ContentManager\API\ContentManagerAPI::class);
 print_r($managerAPI->fetchPostList());

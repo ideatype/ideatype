@@ -1,4 +1,6 @@
 top_menu:
+  - title: Test Page
+    value: /page/testpage
   - title: Entry1
     value: /entry1
   - title: Entry2
