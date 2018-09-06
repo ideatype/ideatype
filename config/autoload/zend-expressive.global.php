@@ -12,7 +12,7 @@ return [
     ConfigAggregator::ENABLE_CACHE => false,
 
     // Enable debugging; typically used to provide debugging information within templates.
-    'debug' => false,
+    'debug' => true,
 
     'zend-expressive' => [
         // Provide templates for the error handling middleware to use when
