@@ -2,3 +2,6 @@
 	path = templates/basic
 	url = https://github.com/ideatype/template-basic.git
 	branch = master
+[submodule "templates/academic"]
+	path = templates/academic
+	url = https://github.com/ideatype/template-academic.git
