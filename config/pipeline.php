@@ -6,6 +6,7 @@ use Psr\Container\ContainerInterface;
 use Service\Base\Middleware\CORSOverrideMiddleware;
 use Service\Base\Middleware\FrontendTemplateMiddleware;
 use Service\Base\Middleware\PrepareRoutesMiddleware;
+use Service\Base\Middleware\RequestLanguageMiddleware;
 use Zend\Expressive\Application;
 use Zend\Expressive\Handler\NotFoundHandler;
 use Zend\Expressive\Helper\ServerUrlMiddleware;
@@ -63,6 +64,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
 
     // Seed the UrlHelper with the routing results:
     $app->pipe(UrlHelperMiddleware::class);
+    $app->pipe(RequestLanguageMiddleware::class);
 
     // Add more middleware here that needs to introspect the routing results; this
     // might include:

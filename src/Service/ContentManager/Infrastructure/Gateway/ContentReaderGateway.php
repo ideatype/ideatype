@@ -4,10 +4,19 @@ declare(strict_types=1);
 namespace Service\ContentManager\Infrastructure\Gateway;
 
 
+use Service\Base\Service\RequestLanguageManager;
 use Service\ContentManager\Infrastructure\Definition\ContentReaderGatewayInterface;
 
 class ContentReaderGateway implements ContentReaderGatewayInterface
 {
+    /** @var RequestLanguageManager */
+    private $languageManager;
+
+    public function __construct(RequestLanguageManager $languageManager)
+    {
+        $this->languageManager = $languageManager;
+    }
+
     public function fetchSinglePost(string $postId): ?array
     {
         return $this->getPostFileContent($postId);
@@ -58,7 +67,7 @@ class ContentReaderGateway implements ContentReaderGatewayInterface
         $returnDirs = [];
 
         foreach ($directories as $directory) {
-            if ($this->isValidPost($directory)) {
+            if (!is_null($this->getAvailablePostLanguage($directory))) {
                 $returnDirs[] = $directory;
             }
         }
@@ -68,10 +77,13 @@ class ContentReaderGateway implements ContentReaderGatewayInterface
 
     private function getPostFileContent(string $dirName): ?array
     {
-        if (!$this->isValidPost($dirName)) {
+        $postLanguage = $this->getAvailablePostLanguage($dirName);
+
+        if (is_null($postLanguage)) {
             return null;
         }
-        $path = realpath($this->getPostDir() . '/' . $dirName . '/post.md');
+
+        $path = $this->getPostFilePath($dirName, $postLanguage);
         $fileContent = @file_get_contents(
             $path
         );
@@ -84,10 +96,13 @@ class ContentReaderGateway implements ContentReaderGatewayInterface
 
     private function getPageFileContent(string $dirName): ?array
     {
-        if (!$this->isValidPage($dirName)) {
+        $pageLanguage = $this->getAvailablePageLanguage($dirName);
+
+        if (is_null($pageLanguage)) {
             return null;
         }
-        $path = realpath($this->getPageDir() . '/' . $dirName . '/page.md');
+
+        $path = $this->getPageFilePath($dirName, $pageLanguage);
         $fileContent = @file_get_contents(
             $path
         );
@@ -98,9 +113,49 @@ class ContentReaderGateway implements ContentReaderGatewayInterface
         ];
     }
 
-    private function isValidPost(string $dirName): bool
+    private function getAvailablePostLanguage(string $dirName): ?string
     {
-        $postPath = realpath($this->getPostDir() . '/' . $dirName . '/post.md');
+        $requestLanguage = $this->languageManager->getRequestLanguage();
+        $defaultLanguage = $this->languageManager->getDefaultLanguage();
+
+        if ($this->isValidPostForLanguage($dirName, $requestLanguage)) {
+            return $requestLanguage;
+        }
+
+        if ($this->isValidPostForLanguage($dirName, $defaultLanguage)) {
+            return $defaultLanguage;
+        }
+
+        if ($this->isValidPostForLanguage($dirName, "")) {
+            return "";
+        }
+
+        return null;
+    }
+
+    private function getAvailablePageLanguage(string $dirName): ?string
+    {
+        $requestLanguage = $this->languageManager->getRequestLanguage();
+        $defaultLanguage = $this->languageManager->getDefaultLanguage();
+
+        if ($this->isValidPageForLanguage($dirName, $requestLanguage)) {
+            return $requestLanguage;
+        }
+
+        if ($this->isValidPageForLanguage($dirName, $defaultLanguage)) {
+            return $defaultLanguage;
+        }
+
+        if ($this->isValidPageForLanguage($dirName, "")) {
+            return "";
+        }
+
+        return null;
+    }
+
+    private function isValidPostForLanguage(string $dirName, ?string $langCode = null): bool
+    {
+        $postPath = $this->getPostFilePath($dirName, $langCode);
 
         if (!$postPath) {
             return false;
@@ -113,9 +168,9 @@ class ContentReaderGateway implements ContentReaderGatewayInterface
         return false;
     }
 
-    private function isValidPage(string $dirName): bool
+    private function isValidPageForLanguage(string $dirName, ?string $langCode = null): bool
     {
-        $pagePath = realpath($this->getPageDir() . '/' . $dirName . '/page.md');
+        $pagePath = $this->getPageFilePath($dirName, $langCode);
 
         if (!$pagePath) {
             return false;
@@ -136,5 +191,19 @@ class ContentReaderGateway implements ContentReaderGatewayInterface
     private function getPageDir(): string
     {
         return realpath('data/pages/');
+    }
+
+    private function getPostFilePath(string $dirName, string $langCode)
+    {
+        $langSuffix = !empty($langCode) ? "_{$langCode}" : "";
+        $pagePath = realpath($this->getPostDir() . '/' . $dirName . '/post' . $langSuffix . '.md');
+        return $pagePath;
+    }
+
+    private function getPageFilePath(string $dirName, string $langCode)
+    {
+        $langSuffix = !empty($langCode) ? "_{$langCode}" : "";
+        $pagePath = ($this->getPageDir() . '/' . $dirName . '/page' . $langSuffix . '.md');
+        return $pagePath;
     }
 }
