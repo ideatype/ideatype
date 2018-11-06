@@ -22,7 +22,7 @@ class ConfigProvider
             'api_routes' => [
                 [
                     'name' => 'get-page',
-                    'path' => "/page/{pageId}",
+                    'path' => "/page/{pageId}[/lang/{langCode}]",
                     'middleware' => [
                         GetPageAction::class
                     ],

@@ -10,7 +10,7 @@ use Endpoint\Post\Action\PostListAction;
 
 class ConfigProvider
 {
-    public function __invoke() : array
+    public function __invoke(): array
     {
         return [
             'dependencies' => [
@@ -24,7 +24,7 @@ class ConfigProvider
             'api_routes' => [
                 [
                     'name' => 'get-post',
-                    'path' => "/post/{postId}",
+                    'path' => "/post/{postId}[/lang/{langCode}]",
                     'middleware' => [
                         GetPostAction::class
                     ],
@@ -32,7 +32,7 @@ class ConfigProvider
                 ],
                 [
                     'name' => 'list-posts',
-                    'path' => "/posts",
+                    'path' => "/posts[/lang/{langCode}]",
                     'middleware' => [
                         PostListAction::class
                     ],

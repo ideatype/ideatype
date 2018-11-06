@@ -1,2 +1,7 @@
 ideatype:
   site_name: IdeaType Demo
+  languages:
+    default: en
+    available:
+      pl: Polski
+      en: English
