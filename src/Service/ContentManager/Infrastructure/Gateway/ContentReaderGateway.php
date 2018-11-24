@@ -5,6 +5,7 @@ namespace Service\ContentManager\Infrastructure\Gateway;
 
 
 use Service\Base\Service\RequestLanguageManager;
+use Service\ConfigManager\Application\Service\ConfigManagerService;
 use Service\ContentManager\Infrastructure\Definition\ContentReaderGatewayInterface;
 
 class ContentReaderGateway implements ContentReaderGatewayInterface
@@ -12,9 +13,13 @@ class ContentReaderGateway implements ContentReaderGatewayInterface
     /** @var RequestLanguageManager */
     private $languageManager;
 
-    public function __construct(RequestLanguageManager $languageManager)
+    /** @var ConfigManagerService */
+    private $configManager;
+
+    public function __construct(RequestLanguageManager $languageManager, ConfigManagerService $configManager)
     {
         $this->languageManager = $languageManager;
+        $this->configManager = $configManager;
     }
 
     public function fetchSinglePost(string $postId): ?array
@@ -185,12 +190,12 @@ class ContentReaderGateway implements ContentReaderGatewayInterface
 
     private function getPostDir(): string
     {
-        return realpath('data/posts/');
+        return realpath($this->configManager->getConfig("paths")->getValue()['post_dir']);
     }
 
     private function getPageDir(): string
     {
-        return realpath('data/pages/');
+        return realpath($this->configManager->getConfig("paths")->getValue()['page_dir']);
     }
 
     private function getPostFilePath(string $dirName, string $langCode)
