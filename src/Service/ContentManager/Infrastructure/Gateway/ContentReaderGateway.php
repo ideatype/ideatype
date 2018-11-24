@@ -51,7 +51,7 @@ class ContentReaderGateway implements ContentReaderGatewayInterface
 
     private function listDirsInPostDirectory(): array
     {
-        $postPath = $this->getPostDir(); // TODO: move to config
+        $postPath = $this->getPostDir();
         $dir = scandir($postPath);
         $directories = [];
 

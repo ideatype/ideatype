@@ -1,2 +1,3 @@
 post_dir: "data/posts/"
 page_dir: "data/pages/"
+template_dir: "templates/"
