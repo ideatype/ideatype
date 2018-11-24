@@ -28,7 +28,7 @@ class ConfigProvider
                 ],
                 'factories' => [
                     FrontendHandlerService::class => ReflectionFactory::class,
-                    FrontendHandlerDomainService::class => FrontendHandlerDomainServiceFactory::class,
+                    FrontendHandlerDomainService::class => ReflectionFactory::class,
                     CheckIfTemplateExistsQuery::class => ReflectionFactory::class,
                     CheckIfTemplateHasFileQuery::class => ReflectionFactory::class,
                     GenerateTemplateFileResponseQuery::class => ReflectionFactory::class,

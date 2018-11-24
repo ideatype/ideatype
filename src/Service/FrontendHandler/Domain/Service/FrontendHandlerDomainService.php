@@ -5,6 +5,7 @@ namespace Service\FrontendHandler\Domain\Service;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Service\ConfigManager\Application\Service\ConfigManagerService;
 use Service\FrontendHandler\Domain\Query\CheckIfTemplateExistsQuery;
 use Service\FrontendHandler\Domain\Query\CheckIfTemplateHasFileQuery;
 use Service\FrontendHandler\Domain\Query\GenerateTemplateFileResponseQuery;
@@ -12,8 +13,8 @@ use SharedLibrary\Exception\TemplateDoesNotExistException;
 
 class FrontendHandlerDomainService
 {
-    /** @var array */
-    private $config;
+    /** @var ConfigManagerService */
+    private $configManager;
 
     /** @var CheckIfTemplateExistsQuery */
     private $checkIfTemplateExistsQuery;
@@ -25,12 +26,12 @@ class FrontendHandlerDomainService
     private $generateTemplateFileResponseQuery;
 
     public function __construct(
-        array $config,
+        ConfigManagerService $configManager,
         CheckIfTemplateExistsQuery $checkIfTemplateExistsQuery,
         CheckIfTemplateHasFileQuery $checkIfTemplateHasFileQuery,
         GenerateTemplateFileResponseQuery $generateTemplateFileResponseQuery
     ) {
-        $this->config = $config;
+        $this->configManager = $configManager;
         $this->checkIfTemplateExistsQuery = $checkIfTemplateExistsQuery;
         $this->checkIfTemplateHasFileQuery = $checkIfTemplateHasFileQuery;
         $this->generateTemplateFileResponseQuery = $generateTemplateFileResponseQuery;
@@ -38,7 +39,8 @@ class FrontendHandlerDomainService
 
     public function handleRequest(ServerRequestInterface $request): ResponseInterface
     {
-        $template = $this->config['template'];
+        $config = $this->configManager->getConfig("template")->getValue();
+        $template = $config['template'];
         if (!$this->checkIfTemplateExistsQuery->execute($template)) {
             throw TemplateDoesNotExistException::forTemplate($template);
         }
@@ -51,6 +53,6 @@ class FrontendHandlerDomainService
             return $this->generateTemplateFileResponseQuery->execute($template, $path);
         }
 
-        return $this->generateTemplateFileResponseQuery->execute($template, $this->config['index_file']);
+        return $this->generateTemplateFileResponseQuery->execute($template, $config['index_file']);
     }
 }
