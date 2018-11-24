@@ -3,10 +3,19 @@ declare(strict_types=1);
 
 namespace Service\FrontendHandler\Infrastructure\Gateway;
 
+use Service\ConfigManager\Application\Service\ConfigManagerService;
 use Service\FrontendHandler\Infrastructure\Definition\TemplateGatewayInterface;
 
 class TemplateGateway implements TemplateGatewayInterface
 {
+    /** @var ConfigManagerService */
+    private $configManager;
+
+    public function __construct(ConfigManagerService $configManager)
+    {
+        $this->configManager = $configManager;
+    }
+
     public function checkIfTemplateExists(string $templateName): bool
     {
         return is_dir($this->getTemplateDirectory() . '/' . $templateName . '/build');
@@ -14,7 +23,7 @@ class TemplateGateway implements TemplateGatewayInterface
 
     private function getTemplateDirectory(): string
     {
-        return realpath('templates/');
+        return realpath($this->configManager->getConfig("paths")->getValue()['template_dir']);
     }
 
     public function checkIfTemplateHasFile(string $templateName, string $fileName): bool
