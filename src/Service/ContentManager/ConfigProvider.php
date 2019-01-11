@@ -7,6 +7,8 @@ namespace Service\ContentManager;
 use Blast\ReflectionFactory\ReflectionFactory;
 use Service\ContentManager\API\ContentManagerAPI;
 use Service\ContentManager\Application\Service\ContentManagerService;
+use Service\ContentManager\Domain\Query\FetchFileForPageQuery;
+use Service\ContentManager\Domain\Query\FetchFileForPostQuery;
 use Service\ContentManager\Domain\Query\FetchPageQuery;
 use Service\ContentManager\Domain\Query\FetchPostListQuery;
 use Service\ContentManager\Domain\Query\FetchSinglePostQuery;
@@ -34,6 +36,8 @@ class ConfigProvider
                     ContentReaderRepository::class => ReflectionFactory::class,
                     FetchPostListQuery::class => ReflectionFactory::class,
                     FetchSinglePostQuery::class => ReflectionFactory::class,
+                    FetchFileForPostQuery::class => ReflectionFactory::class,
+                    FetchFileForPageQuery::class => ReflectionFactory::class,
                     FetchPageQuery::class => ReflectionFactory::class,
                 ],
             ],

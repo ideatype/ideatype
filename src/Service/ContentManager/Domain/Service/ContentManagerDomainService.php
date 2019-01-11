@@ -5,9 +5,12 @@ namespace Service\ContentManager\Domain\Service;
 
 use Service\ContentManager\Domain\Collection\PostMetaCollection;
 use Service\ContentManager\Domain\Entity\Entry;
+use Service\ContentManager\Domain\Query\FetchFileForPageQuery;
+use Service\ContentManager\Domain\Query\FetchFileForPostQuery;
 use Service\ContentManager\Domain\Query\FetchPageQuery;
 use Service\ContentManager\Domain\Query\FetchPostListQuery;
 use Service\ContentManager\Domain\Query\FetchSinglePostQuery;
+use Zend\Diactoros\Stream;
 
 class ContentManagerDomainService
 {
@@ -20,14 +23,24 @@ class ContentManagerDomainService
     /** @var FetchPageQuery */
     private $fetchPageQuery;
 
+    /** @var FetchFileForPostQuery */
+    private $fetchFileForPostQuery;
+
+    /** @var FetchFileForPageQuery */
+    private $fetchFileForPageQuery;
+
     public function __construct(
         FetchPostListQuery $fetchPostListQuery,
         FetchSinglePostQuery $fetchSinglePostQuery,
-        FetchPageQuery $fetchPageQuery
+        FetchPageQuery $fetchPageQuery,
+        FetchFileForPostQuery $fetchFileForPostQuery,
+        FetchFileForPageQuery $fetchFileForPageQuery
     ) {
         $this->fetchPostListQuery = $fetchPostListQuery;
         $this->fetchSinglePostQuery = $fetchSinglePostQuery;
         $this->fetchPageQuery = $fetchPageQuery;
+        $this->fetchFileForPostQuery = $fetchFileForPostQuery;
+        $this->fetchFileForPageQuery = $fetchFileForPageQuery;
     }
 
     public function fetchPostList(): PostMetaCollection
@@ -43,5 +56,15 @@ class ContentManagerDomainService
     public function fetchPage(string $pageId): Entry
     {
         return $this->fetchPageQuery->execute($pageId);
+    }
+
+    public function fetchFileForPost(string $postId, string $fileName): Stream
+    {
+        return $this->fetchFileForPostQuery->execute($postId, $fileName);
+    }
+
+    public function fetchFileForPage(string $pageId, string $fileName): Stream
+    {
+        return $this->fetchFileForPostQuery->execute($pageId, $fileName);
     }
 }

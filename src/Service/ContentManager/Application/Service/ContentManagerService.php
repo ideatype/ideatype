@@ -6,6 +6,7 @@ namespace Service\ContentManager\Application\Service;
 use Service\ContentManager\Domain\Collection\PostMetaCollection;
 use Service\ContentManager\Domain\Entity\Entry;
 use Service\ContentManager\Domain\Service\ContentManagerDomainService;
+use Zend\Diactoros\Stream;
 
 class ContentManagerService
 {
@@ -31,5 +32,15 @@ class ContentManagerService
     public function fetchPage(string $pageId): Entry
     {
         return $this->contentManagerDomainService->fetchPage($pageId);
+    }
+
+    public function fetchFileForPost(string $postId, string $fileName): Stream
+    {
+        return $this->contentManagerDomainService->fetchFileForPost($postId, $fileName);
+    }
+
+    public function fetchFileForPage(string $pageId, string $fileName): Stream
+    {
+        return $this->contentManagerDomainService->fetchFileForPage($pageId, $fileName);
     }
 }

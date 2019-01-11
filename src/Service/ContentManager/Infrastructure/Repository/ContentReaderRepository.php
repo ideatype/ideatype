@@ -14,11 +14,12 @@ use Service\ContentManager\Domain\Exception\PostDoesNotExistException;
 use Service\ContentManager\Infrastructure\Definition\ContentReaderGatewayInterface;
 use Service\ContentManager\Infrastructure\Hydrator\EntryHydrator;
 use Service\ContentManager\Infrastructure\Hydrator\EntryMetaHydrator;
+use Zend\Diactoros\Stream;
 
 class ContentReaderRepository implements ContentReaderRepositoryInterface
 {
     /** @var ContentReaderGatewayInterface */
-    private $postReaderGateway;
+    private $contentReaderGateway;
 
     /** @var ParserAPI */
     private $parserAPI;
@@ -27,14 +28,14 @@ class ContentReaderRepository implements ContentReaderRepositoryInterface
         ContentReaderGatewayInterface $postReaderGateway,
         ParserAPI $parserAPI
     ) {
-        $this->postReaderGateway = $postReaderGateway;
+        $this->contentReaderGateway = $postReaderGateway;
         $this->parserAPI = $parserAPI;
     }
 
     public function fetchPostList(): PostMetaCollection
     {
         $postMetaCollection = new PostMetaCollection();
-        $postMetaArray = $this->postReaderGateway->fetchPostList();
+        $postMetaArray = $this->contentReaderGateway->fetchPostList();
 
         foreach ($postMetaArray as $fileName => $postArray) {
             $parsedPost = $this->parserAPI->parseMarkdown($postArray['content']);
@@ -51,7 +52,7 @@ class ContentReaderRepository implements ContentReaderRepositoryInterface
 
     public function fetchSinglePost(string $postId): Entry //TODO: refactor postId to VO
     {
-        $postArray = $this->postReaderGateway->fetchSinglePost($postId);
+        $postArray = $this->contentReaderGateway->fetchSinglePost($postId);
 
         if (!$postArray) {
             throw PostDoesNotExistException::forPostId($postId);
@@ -68,7 +69,7 @@ class ContentReaderRepository implements ContentReaderRepositoryInterface
 
     public function fetchPage(string $pageId): Entry //TODO: refactor pageId to VO
     {
-        $pageArray = $this->postReaderGateway->fetchPage($pageId);
+        $pageArray = $this->contentReaderGateway->fetchPage($pageId);
 
         if (!$pageArray) {
             throw PageDoesNotExistException::forPageId($pageId);
@@ -86,5 +87,11 @@ class ContentReaderRepository implements ContentReaderRepositoryInterface
     public function sortMethod(EntryMeta $a, EntryMeta $b)
     {
         return $a->getDate() < $b->getDate();
+    }
+
+    public function fetchFile(string $pageId, string $fileName, string $type): Stream
+    {
+        $filePath = $this->contentReaderGateway->fetchFile($pageId, $fileName, $type);
+        return new Stream($filePath);
     }
 }

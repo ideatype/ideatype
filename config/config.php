@@ -27,6 +27,7 @@ $aggregator = new ConfigAggregator([
     Service\ContentManager\ConfigProvider::class,
     Service\ConfigManager\ConfigProvider::class,
     Endpoint\HealthCheck\ConfigProvider::class,
+    Endpoint\File\ConfigProvider::class,
     Endpoint\Post\ConfigProvider::class,
     Endpoint\Page\ConfigProvider::class,
     Endpoint\Config\ConfigProvider::class,

@@ -7,6 +7,7 @@ namespace Service\ContentManager\Infrastructure\Gateway;
 use Service\Base\Service\RequestLanguageManager;
 use Service\ConfigManager\Application\Service\ConfigManagerService;
 use Service\ContentManager\Infrastructure\Definition\ContentReaderGatewayInterface;
+use SharedLibrary\Exception\ContentTypeIsInvalidException;
 
 class ContentReaderGateway implements ContentReaderGatewayInterface
 {
@@ -47,6 +48,23 @@ class ContentReaderGateway implements ContentReaderGatewayInterface
         }
 
         return $returnArray;
+    }
+
+    public function fetchFile(string $contentId, string $fileName, string $type): string
+    {
+        switch ($type) {
+            case 'post':
+                $dir = $this->getPostDir();
+                break;
+            case 'page':
+                $dir = $this->getPageDir();
+                break;
+            default:
+                throw ContentTypeIsInvalidException::forType($type);
+                break;
+        }
+
+        return sprintf("%s/%s/%s", $dir, $contentId, $fileName);
     }
 
     private function listDirsInPostDirectory(): array

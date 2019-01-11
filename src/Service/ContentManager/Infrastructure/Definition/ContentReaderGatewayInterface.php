@@ -8,4 +8,5 @@ interface ContentReaderGatewayInterface
     public function fetchPostList(): array;
     public function fetchSinglePost(string $postId): ?array;
     public function fetchPage(string $pageId): ?array;
+    public function fetchFile(string $contentId, string $fileName, string $type);
 }

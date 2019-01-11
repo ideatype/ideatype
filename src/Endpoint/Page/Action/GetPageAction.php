@@ -8,9 +8,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Service\ContentManager\API\ContentManagerAPI;
 use Service\ContentManager\Domain\Exception\PageDoesNotExistException;
-use Service\ContentManager\Domain\Exception\PostDoesNotExistException;
 use SharedLibrary\Response\StandardResponse;
-use Zend\Diactoros\Response\JsonResponse;
 
 class GetPageAction implements RequestHandlerInterface
 {
